@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Registrar Entrada de Veículo</h2>
+
+<div class="mb-3">
+    <a href="{% url 'painel_principal' %}" class="btn btn-secondary">Voltar ao Painel</a>
+</div>
+
+<form method="POST" class="mt-3">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_nome">Marca:</label>
+        {{ form.nome }}
+    </div>
+    <div class="form-group">
+        <label for="id_modelo">Modelo:</label>
+        {{ form.modelo }}
+    </div>
+    <div class="form-group">
+        <label for="id_ano">Motorista:</label>
+        {{ form.dono }}
+    </div>
+    <div class="form-group">
+        <label for="id_placa">Placa:</label>
+        {{ form.placa }}
+    </div>
+    <div class="form-group">
+        <label for="id_cor">Cor:</label>
+        {{ form.cor }}
+    </div>
+    
+    <button type="submit" class="btn btn-success mt-3">Registrar Entrada</button>
+</form>
+{% endblock %}

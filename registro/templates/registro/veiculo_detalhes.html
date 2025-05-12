@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Detalhes do Veículo</h2>
+
+<div class="mb-3">
+    <a href="{% url 'painel_principal' %}" class="btn btn-secondary">Voltar ao Painel</a>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Nome</th>
+        <td>{{ veiculo.nome }}</td>
+    </tr>
+    <tr>
+        <th>Modelo</th>
+        <td>{{ veiculo.modelo }}</td>
+    </tr>
+    <tr>
+        <th>Placa</th>
+        <td>{{ veiculo.placa }}</td>
+    </tr>
+    <tr>
+        <th>Cor</th>
+        <td>{{ veiculo.cor }}</td>
+    </tr>
+    <tr>
+        <th>Data de Entrada</th>
+        <td>{{ veiculo.data_entrada|date:"d/m/Y H:i" }}</td>
+    </tr>
+</table>
+
+{% if veiculo.esta_no_patio %}
+    <a href="{% url 'registrar_saida' veiculo.id %}" class="btn btn-warning">Registrar Saída</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,68 @@
+<!-- relatorio.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Relatório de Veículos</h2>
+
+<!-- Botão para gerar PDF (passando os parâmetros da query string, se houver) -->
+<a href="{% url 'relatorio_pdf' %}?{{ request.GET.urlencode }}" class="btn btn-success mb-3">Gerar PDF</a>
+
+<!-- Formulário para filtrar por data -->
+<form method="GET" class="mb-4">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label for="id_data_inicial">Data Inicial:</label>
+            {{ form.data_inicial }}
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="id_data_final">Data Final:</label>
+            {{ form.data_final }}
+        </div>
+        <div class="col-md-4 mb-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+<h3>Total de Veículos: {{ total_veiculos }}</h3>
+
+<!-- Tabela com os veículos -->
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Modelo</th>
+                <th>Ano</th>
+                <th>Placa</th>
+                <th>Cor</th>
+                <th>Data de Entrada</th>
+                <th>Data de Saída</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for veiculo in veiculos %}
+            <tr>
+                <td>{{ veiculo.nome }}</td>
+                <td>{{ veiculo.modelo }}</td>
+                <td>{{ veiculo.ano }}</td>
+                <td>{{ veiculo.placa }}</td>
+                <td>{{ veiculo.cor }}</td>
+                <td>{{ veiculo.data_entrada_local|date:"d/m/Y H:i" }}</td>
+                <td>
+                    {% if veiculo.data_saida_local %}
+                        {{ veiculo.data_saida_local|date:"d/m/Y H:i" }}
+                    {% else %}
+                        Em Pátio
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">Nenhum veículo encontrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

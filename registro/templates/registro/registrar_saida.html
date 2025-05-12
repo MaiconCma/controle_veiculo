@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Registrar Saída de Veículo</h2>
+
+<div class="mb-3">
+    <a href="{% url 'painel_principal' %}" class="btn btn-secondary">Voltar ao Painel</a>
+</div>
+
+<p><strong>Veículo:</strong> {{ veiculo.nome }} - {{ veiculo.modelo }} ({{ veiculo.dono }})</p>
+<p><strong>Placa:</strong> {{ veiculo.placa }}</p>
+<p><strong>Entrada:</strong> {{ veiculo.data_entrada|date:"d/m/Y H:i" }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success mt-3">Registrar Saída</button>
+</form>
+
+{% endblock %}
